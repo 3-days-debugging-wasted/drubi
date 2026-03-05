@@ -29,3 +29,9 @@ you also can pipe it through stdout:
 ```bash
 echo -n "hello, world!" | drubi
 ```
+you can also do the following:
+```bash
+drubi
+hello
+<CTRL+D>
+```
