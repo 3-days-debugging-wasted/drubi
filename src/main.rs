@@ -86,7 +86,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_determenism() {
+    fn test_determinism() {
         let binding = hash(b"hello, world!");
         let input = binding.as_bytes();
         assert_eq!(
