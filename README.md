@@ -10,7 +10,7 @@ cd drubi
 ```
 then, compile
 ```
-cargo build --release`
+cargo build --release
 ```
 and copy the binary to /usr/local/bin!
 ```
