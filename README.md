@@ -11,11 +11,11 @@ cd drubi
 then, compile
 ```bash
 cargo build --release
-```bash
-and copy the binary to /usr/local/bin!
 ```
-sudo cp -v target/release/drubi /usr/local/bin
+and copy the binary to /usr/local/bin!
 ```bash
+sudo cp -v target/release/drubi /usr/local/bin
+```
 ## how to use?
 you could either put input in arguments:
 ```bash
