@@ -1,0 +1,13 @@
+[package]
+name = "drubi"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.102"
+blake3 = "1.8.3"
+
+[profile.release]
+strip = true
+opt-level = "z"
+lto = true
