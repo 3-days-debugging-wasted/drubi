@@ -21,7 +21,7 @@ fn draw(data: &[u8]) -> Result<String> {
     for byte in data {
         for shift in (0..8).step_by(2) {
             // i dont really understand anything in there so i just pray that it works ehehe
-            let mut bit = (byte >> shift) & 3;
+            let bit = (byte >> shift) & 3;
             x = (x as i32 + ((bit & 1) as i32 * 2) - 1).clamp(0, (WIDTH-1) as i32) as usize;
             y = (y as i32 + (((bit >> 1) & 1) as i32 * 2) - 1).clamp(0, (HEIGHT-1) as i32) as usize;
             let idx = y * WIDTH + x;
@@ -35,9 +35,9 @@ fn draw(data: &[u8]) -> Result<String> {
     output.push_str(r"+
 ");
     
-    for row in (0..HEIGHT) {
+    for row in 0..HEIGHT {
         output.push('|');
-        for col in (0..WIDTH) {
+        for col in 0..WIDTH {
             let pos = (col,row);
             let idx = row * WIDTH + col;
             if pos == (x,y) {
@@ -71,7 +71,7 @@ fn main() -> Result<()> {
     if !args.is_empty() {
         input = args.join(" ").into_bytes();
     } else {
-        io::stdin().read_to_end(&mut input);
+        io::stdin().read_to_end(&mut input)?;
     }
     println!("{}", draw(
         hash(
@@ -79,4 +79,43 @@ fn main() -> Result<()> {
         ).as_bytes()
     )?); 
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_determenism() {
+        let binding = hash(b"hello, world!");
+        let input = binding.as_bytes();
+        assert_eq!(
+            draw(input).unwrap(),
+            draw(input).unwrap(),
+            "output must be the same for the same input"
+        );
+    }
+    #[test]
+    fn test_painting_structure() {
+        let data = [0u8; 32];
+        let output = draw(&data).unwrap();
+        let lines = output.lines().collect::<Vec<&str>>();
+        assert_eq!(
+            lines.len(),
+            HEIGHT+2
+        );
+        assert!(lines.last().unwrap().contains(ALGORITHM));
+        assert!(output.contains("E"));
+        assert!(output.contains("S"));
+    }
+    #[test]
+    fn test_clamping_logic() {
+        let data = [0u8; 100];
+        let res = draw(&data);
+        assert!(res.is_ok());
+        
+        let data_max = [255u8; 100];
+        let res_max = draw(&data_max);
+        assert!(res_max.is_ok());
+    }
 }
