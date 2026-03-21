@@ -22,7 +22,7 @@ fn draw(data: &[u8]) -> Result<String> {
         for shift in (0..8).step_by(2) {
             // extract last 2 bits from a specific direction
             let bit = (byte >> shift) & 3;
-	    // convert bit values to movement. using f(x)=2x-1 to get direction
+            // convert bit values to movement. using f(x)=2x-1 to get direction
             x = (x as i32 + ((bit & 1) as i32 * 2) - 1).clamp(0, (WIDTH-1) as i32) as usize;
             y = (y as i32 + (((bit >> 1) & 1) as i32 * 2) - 1).clamp(0, (HEIGHT-1) as i32) as usize;
 	    let idx = y * WIDTH + x;
