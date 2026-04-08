@@ -19,19 +19,19 @@ sudo cp -v target/release/drubi /usr/local/bin
 ## how to use?
 you could either put input in arguments:
 ```bash
-drubi hello, world!
+$ drubi hello, world!
 ```
 or 
 ```bash
-drubi "hello, world!"
+$ drubi "hello, world!"
 ```
 you also can pipe it through stdout:
 ```bash
-echo -n "hello, world!" | drubi
+$ echo -n "hello, world!" | drubi
 ```
 you can also do the following:
 ```bash
-drubi
+$ drubi
 hello
 <CTRL+D>
 ```
