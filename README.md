@@ -5,16 +5,16 @@ because i liked it
 ## Building?
 clone the git repository and cd into it:
 ```bash
-git clone https://github.com/3-days-debugging-wasted/drubi.git
-cd drubi
+$ git clone https://github.com/3-days-debugging-wasted/drubi.git
+$ cd drubi
 ```
 then, compile
 ```bash
-cargo build --release
+$ cargo build --release
 ```
 and copy the binary to /usr/local/bin!
 ```bash
-sudo cp -v target/release/drubi /usr/local/bin
+# cp -v target/release/drubi /usr/local/bin
 ```
 ## how to use?
 you could either put input in arguments:
