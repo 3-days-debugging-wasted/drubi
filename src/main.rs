@@ -5,9 +5,8 @@ use blake3::hash;
 const ALGORITHM: &str = "BLAKE3";
 
 // Board borders
-const WIDTH: usize = 23;
+const WIDTH: usize = 26;
 const HEIGHT: usize = 12;
-// Bishop
 
 const CHARS: &str = ".o+=*BOX@%&#/^";
 
@@ -16,8 +15,8 @@ fn draw(data: &[u8]) -> Result<String> {
     let mut x = (WIDTH-1)/2;
     let mut y = (HEIGHT-1)/2;
 
-    let mut painting = vec![0u8; WIDTH * HEIGHT];
-    let start_pos = (x,y);
+    let mut painting: Box<[u8]> = vec![0u8; WIDTH * HEIGHT].into_boxed_slice();
+    let start_idx = y*WIDTH+x;
     for byte in data {
         for shift in (0..8).step_by(2) {
             // extract last 2 bits from a specific direction
@@ -39,11 +38,10 @@ fn draw(data: &[u8]) -> Result<String> {
     for row in 0..HEIGHT {
         output.push('|');
         for col in 0..WIDTH {
-            let pos = (col,row);
             let idx = row * WIDTH + col;
-            if pos == (x,y) {
+            if idx == y*WIDTH+x {
                 output.push('E');
-            } else if pos == start_pos {
+            } else if idx == start_idx {
                 output.push('S');
             } else {
                 let count = painting[idx] as usize;
